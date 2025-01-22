@@ -7,16 +7,25 @@ import {
   UserButton,
   useUser,
 } from "@clerk/nextjs";
+import Image from "next/image";
 import Link from "next/link";
 
 const TopNav = () => {
   const { isSignedIn, user } = useUser();
 
-  console.log("afs ", { isSignedIn, user });
+  //   console.log("afs ", { isSignedIn, user });
 
   return (
     <nav className="flex justify-between items-center p-2 shadow">
-      <Link href={`/`}>AI</Link>
+      <Link href="/">
+        <Image
+          src="/logo.svg"
+          alt="Logo"
+          width={100}
+          height={50}
+          className="cursor-pointer"
+        />
+      </Link>
       <div className="flex justify-end items-center gap-5">
         {isSignedIn && (
           <Link href={`/dashboard`}>{user.fullName}'s Dashboard</Link>
