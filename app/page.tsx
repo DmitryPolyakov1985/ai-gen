@@ -2,6 +2,7 @@
 
 import { runAi } from "@/actions/ai";
 import { Button } from "@/components/ui/button";
+import ReactMarkdown from "react-markdown";
 import {
   Card,
   CardHeader,
@@ -42,8 +43,14 @@ export default function Page() {
         <Button>Generate with AI</Button>
       </form>
       <Card className="mt-5">
-        <CardHeader>AI Response</CardHeader>
-        <CardContent>{loading ? "Loading..." : response}</CardContent>
+        <CardHeader>AI Response will appear here</CardHeader>
+        <CardContent>
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            <ReactMarkdown>{response}</ReactMarkdown>
+          )}
+        </CardContent>
       </Card>
     </div>
   );
