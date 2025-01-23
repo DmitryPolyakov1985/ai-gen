@@ -9,6 +9,7 @@ import {
 } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { ModeToggle } from "@/components/nav/mode-toggle";
 
 const TopNav = () => {
   const { isSignedIn, user } = useUser();
@@ -19,6 +20,7 @@ const TopNav = () => {
     <nav className="flex justify-between items-center p-2 shadow">
       <Link href="/">
         <Image
+          priority
           src="/logo.svg"
           alt="Logo"
           width={100}
@@ -36,6 +38,9 @@ const TopNav = () => {
         <SignedIn>
           <UserButton />
         </SignedIn>
+        <div className="ml-1">
+          <ModeToggle />
+        </div>
       </div>
     </nav>
   );
