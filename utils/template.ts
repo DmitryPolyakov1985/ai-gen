@@ -87,9 +87,7 @@ export default [
     category: "recipes",
     icon: "https://cdn-icons-png.flaticon.com/128/1830/1830839.png",
     slug: "ai-chef",
-
     aiPrompt: "Generate a easy and healthy recipe for: ",
-
     form: [
       {
         label: "Enter your youtube title",
@@ -157,7 +155,6 @@ export default [
     desc: "An AI tool that serves as your personal blog post title writer, generating catchy and viral-worthy titles in your chosen language.",
     icon: "https://cdn-icons-png.flaticon.com/128/15713/15713420.png",
     category: "blog",
-
     slug: "ai-instagram-post-generator",
     aiPrompt:
       "Generate 3 Instagram post depends on a given keywords and give output in  in rich text editor format",
@@ -175,7 +172,6 @@ export default [
     desc: "An AI tool that serves as your personal blog post title writer, generating catchy and viral-worthy titles in your chosen language.",
     icon: "https://cdn-icons-png.flaticon.com/128/7045/7045432.png",
     category: "blog",
-
     slug: "ai-instagram-hash-tag-generator",
     aiPrompt:
       "Generate 15 Instagram hash tag depends on a given keywords and give output in  in rich text editor format",
@@ -193,7 +189,6 @@ export default [
     desc: "An AI tool that generate New and trending instagram idea depends on your niche",
     icon: "https://cdn-icons-png.flaticon.com/128/1029/1029183.png",
     category: "instagram",
-
     slug: "ai-instagram-post-idea-generator",
     aiPrompt:
       "Generate 5-10 Instagram idea depends on niche with latest trend and give output in  in rich text editor format",
@@ -211,7 +206,6 @@ export default [
     desc: "AI Model to Correct your english grammer by providing the text",
     icon: "https://cdn-icons-png.flaticon.com/128/12596/12596700.png",
     category: "english",
-
     slug: "ai-english-grammer-checker",
     aiPrompt:
       "Rewrite the inputText by correcting the grammer and give output in  in rich text editor format",
@@ -229,7 +223,6 @@ export default [
     desc: "AI Model to generate programming code in any language",
     icon: "https://cdn-icons-png.flaticon.com/128/6062/6062646.png",
     category: "Coding",
-
     slug: "ai-write-code",
     aiPrompt:
       "Depends on user codeDescription write a code and give output in  in rich text editor format in code block ",
@@ -266,7 +259,6 @@ export default [
     desc: "This tool analyzes your input, like error messages and code snippets, to pinpoint and fix bugs, offering detailed solutions and alternatives in a straightforward, user-friendly way.",
     icon: "https://cdn-icons-png.flaticon.com/128/4426/4426267.png",
     category: "code-bug-detector",
-
     slug: "ai-code-bug-detector",
     aiPrompt:
       "Depends on user codeInput find bug in code and give solution and give output in  in rich text editor format in code block ",
