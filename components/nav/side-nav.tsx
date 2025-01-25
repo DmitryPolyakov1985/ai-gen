@@ -26,9 +26,9 @@ const SideNav = () => {
           key={idx}
           className={`${
             path === item.path
-              ? "bg-primary text-white "
-              : "hover:bg-primary hover:text-white"
-          } flex m-2 mr-2 p-2 min-w-10 rounded-lg hover:cursor-pointer`}
+              ? "border-primary text-primary "
+              : "hover:border-primary hover:text-primary"
+          } flex m-2 mr-2 p-2 min-w-10 rounded-lg hover:cursor-pointer border`}
         >
           <Link
             href={`${item.path}`}
