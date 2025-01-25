@@ -57,7 +57,7 @@ export default [
     aiPrompt: "How to reply to this email: ",
     form: [
       {
-        label: "Enter your youtube video topic keyowords",
+        label: "Enter the email you want to reply to",
         field: "textarea",
         name: "keywords",
         required: true,
@@ -90,7 +90,7 @@ export default [
     aiPrompt: "Generate a easy and healthy recipe for: ",
     form: [
       {
-        label: "Enter your youtube title",
+        label: "Enter the name of food you want to cook",
         field: "input",
         name: "title",
         required: true,
@@ -211,7 +211,7 @@ export default [
       "Rewrite the inputText by correcting the grammer and give output in  in rich text editor format",
     form: [
       {
-        label: "Enter text to correct the grammer",
+        label: "Enter text to correct the grammar",
         field: "input",
         name: "inputText",
         required: true,
