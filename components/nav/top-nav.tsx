@@ -10,14 +10,14 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { ModeToggle } from "@/components/nav/mode-toggle";
+import { Toaster } from "react-hot-toast";
 
 const TopNav = () => {
   const { isSignedIn, user } = useUser();
 
-  //   console.log("afs ", { isSignedIn, user });
-
   return (
     <nav className="flex justify-between items-center p-2 shadow">
+      <Toaster />
       <Link href="/">
         <Image
           priority
