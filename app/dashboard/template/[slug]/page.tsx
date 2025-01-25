@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { ArrowLeft, Loader2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import template from "@/utils/template";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { runAi } from "@/actions/ai";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Editor } from "@toast-ui/react-editor";
 
 export interface Template {
   name: string;
@@ -29,11 +32,32 @@ export interface Form {
 const Page = ({ params }: { params: { slug: string } }) => {
   const { slug } = params;
   const t = template.find((temp) => temp.slug === slug) as Template;
+  // state
+  const [query, setQuery] = useState("");
+  const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
+  // ref
+  const editorRef = useRef<any>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    if (content) {
+      const editorInstance = editorRef.current.getInstance();
+      editorInstance.setMarkdown(content);
+    }
+  }, [content]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
-    console.log("submitted");
+    try {
+      const data = await runAi(t.aiPrompt + query);
+      setContent(data);
+    } catch (error) {
+      setContent("An error occured. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (
@@ -57,23 +81,41 @@ const Page = ({ params }: { params: { slug: string } }) => {
               <label className="font-bold pb-5">{item.label}</label>
               {item.field === "input" ? (
                 <Input
-                  onChange={handleChange}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setQuery(e.target.value)
+                  }
                   name={item.name}
                   required={item.required}
                 />
               ) : (
                 <Textarea
-                  onChange={handleChange}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                    setQuery(e.target.value)
+                  }
                   name={item.name}
                   required={item.required}
                 />
               )}
             </div>
           ))}
-          <Button type="submit" className="w-full py-6">
-            Generate Content
+          <Button type="submit" className="w-full py-6" disabled={loading}>
+            {loading ? (
+              <Loader2Icon className="animate-spin mr-2" />
+            ) : (
+              "Generate Content"
+            )}
           </Button>
         </form>
+      </div>
+      <div className="col-span-2">
+        <Editor
+          ref={editorRef}
+          initialValue="Generated content will appear here"
+          previewStyle="vertial"
+          initialEditType="wysiwyg"
+          height="600px"
+          useCommandSHortcut={true}
+        />
       </div>
     </div>
   );

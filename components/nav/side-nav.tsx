@@ -11,7 +11,6 @@ import { usePathname } from "next/navigation";
 
 const SideNav = () => {
   const path = usePathname();
-  console.log("path ", path);
 
   const menu = [
     { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },

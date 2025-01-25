@@ -17,7 +17,7 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
 
-  const handleClick = async (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     setLoading(true);
@@ -33,7 +33,7 @@ export default function Page() {
 
   return (
     <div className="m-5">
-      <form onSubmit={handleClick}>
+      <form onSubmit={handleSubmit}>
         <Input
           className="mb-5"
           placeholder="Ask anything..."
