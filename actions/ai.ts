@@ -31,7 +31,6 @@ export async function runAi(text: string) {
   });
 
   const result = await chatSession.sendMessage(text);
-
   return result.response.text();
 }
 
