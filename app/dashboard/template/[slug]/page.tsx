@@ -8,10 +8,11 @@ import template from "@/utils/template";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { runAi } from "@/actions/ai";
+import { runAi, saveQuery } from "@/actions/ai";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import { toast } from "react-hot-toast";
+import { useUser } from "@clerk/nextjs";
 
 export interface Template {
   name: string;
@@ -31,6 +32,9 @@ export interface Form {
 }
 
 const Page = ({ params }: { params: { slug: string } }) => {
+  const { user } = useUser();
+  const email = user?.primaryEmailAddress?.emailAddress;
+
   const { slug } = params;
   const t = template.find((temp) => temp.slug === slug) as Template;
   // state
@@ -54,6 +58,8 @@ const Page = ({ params }: { params: { slug: string } }) => {
     try {
       const data = await runAi(t.aiPrompt + query);
       setContent(data);
+      // save to db
+      await saveQuery(t, email as string, query, data);
     } catch (error) {
       setContent("An error occured. Please try again.");
     } finally {
