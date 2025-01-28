@@ -33,7 +33,7 @@ export interface Form {
 
 const Page = ({ params }: { params: { slug: string } }) => {
   const { user } = useUser();
-  const email = user?.primaryEmailAddress?.emailAddress;
+  const email = user?.primaryEmailAddress?.emailAddress || "";
 
   const { slug } = params;
   const t = template.find((temp) => temp.slug === slug) as Template;
