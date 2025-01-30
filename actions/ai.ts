@@ -62,25 +62,23 @@ export async function saveQuery(
   }
 }
 
-export async function getQueries(
-  email: string,
-  page: number,
-  pageSize: number
-) {
+export async function getQueries(email: string, page: number, perPage: number) {
   try {
     await db();
 
-    const skip = (page - 1) * pageSize;
+    const skip = (page - 1) * perPage;
     const totalQueries = await Query.countDocuments({ email });
     const queries = await Query.find({ email })
       .skip(skip)
-      .limit(pageSize)
+      .limit(perPage)
       .sort({ createdAt: -1 });
 
-    return {
-      queries,
-      totalPages: Math.ceil(totalQueries / pageSize),
-    };
+    return JSON.parse(
+      JSON.stringify({
+        queries,
+        totalPages: Math.ceil(totalQueries / perPage),
+      })
+    );
   } catch (err) {
     return {
       ok: false,
