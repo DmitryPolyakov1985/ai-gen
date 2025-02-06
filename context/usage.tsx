@@ -1,11 +1,11 @@
 "use client";
-
+import { createContext, useContext, useState, useEffect } from "react";
 import { usageCount } from "@/actions/ai";
 import { useUser } from "@clerk/nextjs";
-import { createContext, useContext, useState, useEffect } from "react";
 
 interface UsageContextType {
   count: number;
+  fetchUsage: () => void;
 }
 
 const UsageContext = createContext<UsageContextType | null>(null);
@@ -20,7 +20,6 @@ export const UsageProvider = ({
   // hooks
   const { user } = useUser();
   const email = user?.primaryEmailAddress?.emailAddress || "";
-  console.log("email ", email);
 
   useEffect(() => {
     if (email) {
@@ -30,20 +29,20 @@ export const UsageProvider = ({
 
   const fetchUsage = async () => {
     const res = await usageCount(email);
-    console.log("res ", res);
-
     setCount(res);
   };
 
   return (
-    <UsageContext.Provider value={{ count }}>{children}</UsageContext.Provider>
+    <UsageContext.Provider value={{ count, fetchUsage }}>
+      {children}
+    </UsageContext.Provider>
   );
 };
 
 export const useUsage = () => {
   const context = useContext(UsageContext);
   if (context === null) {
-    throw new Error(`useUsage must be used within a UsageProvider`);
+    throw new Error("useUsage must be used within a UsageProvider");
   }
   return context;
 };

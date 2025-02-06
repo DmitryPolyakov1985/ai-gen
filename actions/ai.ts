@@ -87,24 +87,21 @@ export async function getQueries(email: string, page: number, perPage: number) {
 }
 
 export async function usageCount(email: string) {
-  console.log("usageCount called");
-
   try {
     await db();
 
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1;
+    const startDate = new Date(`${currentYear}-01-01T00:00:00.000Z`);
+    const endDate = new Date(`${currentYear + 1}-01-01T00:00:00.000Z`);
 
     const result = await Query.aggregate([
       {
         $match: {
-          email: email,
-          $expr: {
-            $and: [
-              { $eq: [{ $year: "$createdAt" }, currentYear] },
-              { $eq: [{ $month: "$createdAt" }, currentMonth] },
-            ],
+          email,
+          createdAt: {
+            $gte: startDate,
+            $lt: endDate,
           },
         },
       },
@@ -125,7 +122,7 @@ export async function usageCount(email: string) {
       },
     ]);
 
-    return result?.length > 10 ? result[0].totalWords : 0;
+    return result?.length > 0 ? result[0].totalWords : 0;
   } catch (error) {
     console.log("Error fetching usage count ", error);
   }
