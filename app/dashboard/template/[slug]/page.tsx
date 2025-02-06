@@ -14,10 +14,13 @@ import { Editor } from "@toast-ui/react-editor";
 import { toast } from "react-hot-toast";
 import { useUser } from "@clerk/nextjs";
 import { Template } from "@/utils/types";
+import { useUsage } from "@/context/usage";
 
 const Page = ({ params }: { params: { slug: string } }) => {
+  // hooks
   const { user } = useUser();
   const email = user?.primaryEmailAddress?.emailAddress || "";
+  const { fetchUsage } = useUsage();
 
   const { slug } = params;
   const t = template.find((temp) => temp.slug === slug) as Template;
@@ -44,6 +47,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
       setContent(data);
       // save to db
       await saveQuery(t, email as string, query, data);
+      fetchUsage();
     } catch (error) {
       setContent("An error occured. Please try again.");
     } finally {

@@ -15,7 +15,7 @@ function Usage() {
         <div className="h-2 bg-slate-500 w-full rounded-full mt-3">
           <div
             className="h-2 bg-slate-200 rounded-full"
-            style={{ width: `${percentage}` }}
+            style={{ width: `${percentage}%` }}
           ></div>
         </div>
         <h2 className="text-sm my-2">
